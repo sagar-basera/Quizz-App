@@ -5,11 +5,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 
 class QuizQuesActivity : AppCompatActivity(), View.OnClickListener {
+
+    private var myCurrentPosition : Int = 1
+    private var myQuestionList : ArrayList<Question>? = null
+    private var mySelectedOptionPosition : Int = 0
 
     private var progressBar : ProgressBar? = null
     private var tvProgress : TextView? = null
@@ -20,6 +25,7 @@ class QuizQuesActivity : AppCompatActivity(), View.OnClickListener {
     private var tvOptionTwo : TextView? = null
     private var tvOptionThree : TextView? = null
     private var tvOptionFour : TextView? = null
+    private var btnSubmit : Button? = null
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,19 +40,19 @@ class QuizQuesActivity : AppCompatActivity(), View.OnClickListener {
         tvOptionTwo = findViewById(R.id.tv_option_two)
         tvOptionThree = findViewById(R.id.tv_option_three)
         tvOptionFour = findViewById(R.id.tv_option_four)
+        btnSubmit = findViewById(R.id.btn_submit)
 
-        val  questionList = Constants.getQuestion()
-        Log.i("Question size is", "${questionList.size}" )
+        myQuestionList = Constants.getQuestion()
+        setQuestion()
+    }
 
-        for (i in questionList){
-            Log.e("Question", i.question)
-        }
+    @SuppressLint("SetTextI18n")
+    private fun setQuestion() {
 
-        var currentPosition = 1
-        var question : Question = questionList[currentPosition-1]
+        val question: Question = myQuestionList!![myCurrentPosition - 1]
         ivImage?.setImageResource(question.image)
-        progressBar?.progress = currentPosition
-        tvProgress?.text = "$currentPosition/${progressBar?.max}"
+        progressBar?.progress = myCurrentPosition
+        tvProgress?.text = "$myCurrentPosition/${progressBar?.max}"
         tvQuestion?.text = question.question
         tvOptionOne?.text = question.optionOne
         tvOptionTwo?.text = question.optionTwo
