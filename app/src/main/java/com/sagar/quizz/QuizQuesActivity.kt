@@ -2,6 +2,7 @@ package com.sagar.quizz
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 
 class QuizQuesActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -45,7 +47,7 @@ class QuizQuesActivity : AppCompatActivity(), View.OnClickListener {
 
         myQuestionList = Constants.getQuestion()
         setQuestion()
-        defaultSelectedView()
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -85,8 +87,16 @@ class QuizQuesActivity : AppCompatActivity(), View.OnClickListener {
 
         for(option in options){
             option.setTextColor(Color.parseColor("#7A8089"))
+
+            option.typeface = Typeface.DEFAULT
+            option.background = ContextCompat.getDrawable(
+                this,
+                R.drawable.default_option_border_bg
+            )
         }
     }
+
+
 
     override fun onClick(p0: View?) {
         TODO("Not yet implemented")
