@@ -1,6 +1,7 @@
 package com.sagar.quizz
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -44,6 +45,7 @@ class QuizQuesActivity : AppCompatActivity(), View.OnClickListener {
 
         myQuestionList = Constants.getQuestion()
         setQuestion()
+        defaultSelectedView()
     }
 
     @SuppressLint("SetTextI18n")
@@ -58,6 +60,32 @@ class QuizQuesActivity : AppCompatActivity(), View.OnClickListener {
         tvOptionTwo?.text = question.optionTwo
         tvOptionThree?.text = question.optionThree
         tvOptionFour?.text = question.optionFour
+
+        if(myCurrentPosition == myQuestionList!!.size){
+            btnSubmit?.text = "FINISH"
+        }else{
+            btnSubmit?.text = "START"
+        }
+    }
+
+    private fun defaultSelectedView(){
+        val options = ArrayList<TextView>()
+        tvOptionOne?.let {
+            options.add(0, it)
+        }
+        tvOptionTwo?.let {
+            options.add(1, it)
+        }
+        tvOptionThree?.let {
+            options.add(2, it)
+        }
+        tvOptionFour?.let {
+            options.add(3, it)
+        }
+
+        for(option in options){
+            option.setTextColor(Color.parseColor("#7A8089"))
+        }
     }
 
     override fun onClick(p0: View?) {
